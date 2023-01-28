@@ -17,7 +17,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='store', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, blank=False, null=False)
     slug = models.SlugField(max_length=50)
     description = models.TextField(blank=True, null=True)
