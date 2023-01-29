@@ -1,0 +1,67 @@
+#category-grid {
+    display: grid;
+    padding-top: 3rem;
+    max-width: 1260px;
+    margin: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+}
+
+.cat-grid-item {
+    height: 600px;
+    background-color: #000;
+    padding: 1rem;
+    border-bottom: 3px solid #fff;
+    border-radius: 0.25rem;
+}
+
+.cat-grid-item h3 {
+    padding-top: 40%;
+    font-size: 2.5rem;
+    color: #000;
+    font-variant: small-caps;
+}
+
+/* CATEGORY IMAGES */
+#roof-rack-category {
+    background-image: url(../images/roof_rack_category_1_600px.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#rear-ladder-category {
+    background-image: url(../images/rear_ladder_category_600px.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#side-ladder-category {
+    background-image: url(../images/side_ladder_category_600px.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#spare-wheel-category {
+    background-image: url(../images/spare_wheel_category_1_600px.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#spare-wheel-category  h3{
+    padding-top: 3rem;
+    color: #000; 
+}
+
+#rear-ladder-category  h3{
+   text-align: center;
+    padding-top: 5rem;
+    color: #fff; 
+}
+
+/* MEDIA QUERIES */
+/* ADJUST GRID ON SMALLER SCREEN */
+@media (max-width: 560px) {
+    #category-grid {
+        grid-template-columns: 1fr;
+    }
+}
