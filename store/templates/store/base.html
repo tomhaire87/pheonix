@@ -5,16 +5,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Phoenix Vanz{% endblock %}</title>
+    <title>Phoenix Vanz {% block title %}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'store/css/main.css' %}"> 
+    <link rel="stylesheet" href="{% static 'store/css/nav.css' %}"> 
+    <link rel="stylesheet" href="{% static 'store/css/index.css' %}"> 
 </head>
 
     <body>
         <nav class="nav">
-            <a class="navbar-brand" href="#">Phoenix Vanz</a>
-            {% comment %} Nav Bar {% endcomment %}
+            <h1>Phoenix Vanz</h1>
+            <div class="menu">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Categories</a>
+                <a href="#">Contact</a>
+            </div>
+            
+            <button class="ham">
+                <span class="material-icons">menu</span>
+            </button>
+            
         </nav>    
+        
+        <div class="mobile-menu">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Categories</a>
+            <a href="#">Contact</a>
+        </div>
+        
+        <div id="content">{% block content %} {% endblock %}</div>
+        
+        <script src="{% static 'store/js/nav.js' %}"></script>
     </body>
 
-    <div id="content">{% block content %} {% endblock %}</div>
 
 </html>
