@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from PIL import Image
 
 
 class Category(models.Model):
@@ -23,6 +24,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200, blank=False, null=False)
     slug = models.SlugField(max_length=50)
     description = models.TextField(blank=True, null=True)
+    image_main = models.ImageField(upload_to='static\images', default='images/default.png')
     price = models.DecimalField(max_digits=6, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

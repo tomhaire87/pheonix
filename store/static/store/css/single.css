@@ -1,0 +1,34 @@
+.product_detail_container {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    grid-gap: 2rem;
+}
+
+.product_detail_container img {
+    border-radius: 3rem;
+}
+
+.product_detail_container h1 {
+    font-size: 3rem;
+    color: #FBC222;
+}
+
+.product_detail_container p {
+    font-size: 2rem;
+    color: #FBC222;
+}
+
+.product_detail_container span {
+    font-size: 2.5rem;
+    color: #FBC222;
+}
+
+.product_detail_container .btn {
+    padding: 0.5rem;
+    font-size: 2rem;
+    background-color: green;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}

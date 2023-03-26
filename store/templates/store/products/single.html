@@ -5,30 +5,18 @@
 {{ product.name }}
 {% endblock %}
 {% block content %}
-<div class="container">
-    <main class="pt-5">
-        <div class="row g-3">
-            <div>
-                <h1>{{ product.name }}</h1>
-                <div>
-                    {% comment %} <img class="img" width="200px" alt="Responsive image" src="{{ product.image.url }}"> {% endcomment %}
-                </div>
-                <p>{{ product.description|slice:":355" }}</p>
-                <div class="border">
-                    <div class="col border-bottom">
-                        <div class="row p-3">
-                            <div><span>£{{ product.price }}</span></div>
-                        </div>
-                    </div>
-                        <div class="row p-3">
-                            <button type="button" class="btn btn-secondary btn-sm">
-                                Add to basket
-                            </button></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+<div class="product_detail_container">
+    <h1>{{ product.name }}</h1>
+
+    <img class="img" width="60%" alt="{{ product.name }}" src="{{ product.image_main.url }}">
+
+    <p>{{ product.description}}</p>
+
+    <span>£{{ product.price }}</span>
+
+    <button type="button" class="btn">
+        Add to basket
+    </button>
+
 </div>
 {% endblock %}

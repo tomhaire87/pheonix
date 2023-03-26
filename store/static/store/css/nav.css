@@ -19,6 +19,7 @@ nav h1 {
     border: 3px white solid;
     border-radius: 3px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 nav h1:hover {
