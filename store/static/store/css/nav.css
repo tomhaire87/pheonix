@@ -22,7 +22,7 @@ nav h1 {
 }
 
 nav h1:hover {
-    color: rgb(220, 220, 20);
+    color:#FBC222;
 }
 
 .menu {
@@ -41,7 +41,7 @@ nav h1:hover {
 }
 
 .menu a:hover {
-    color: rgb(220, 220, 20);
+    color: #FBC222;
 }
 
 .ham {

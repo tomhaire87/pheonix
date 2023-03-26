@@ -1,5 +1,6 @@
 #category-grid {
     display: grid;
+    font-family: 'Walter Turncoat', cursive;
     padding-top: 3rem;
     max-width: 90%;
     margin: 0 auto 5rem;
@@ -8,24 +9,25 @@
 }
 
 .cat-grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     height: 500px;
     background-color: #000;
     padding: 1rem;
-    border-bottom: 10px solid #333;
+    border-bottom: 10px solid #222;
     border-radius: 0.25rem;
     opacity: 0.7;
 }
 
-.cat-grid-item-text {
-    font-size: 2rem;
-    color: #ddd;
-    font-variant: small-caps;
-}
-
 .cat-grid-item-text h3 {
+    font-size: 2rem;
+    color: whitesmoke;
+    font-variant: small-caps;
     padding: 0.5rem;
     text-align: center;
-    background-color: #1f2cbd85;
+    background-color: rgba(25,25,25,0.6);
+    border-radius: 0.25rem;
 }
 
 /* CATEGORY IMAGES */

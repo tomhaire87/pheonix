@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -13,7 +14,8 @@ class Category(models.Model):
     
     # REPLACE WITH REVERSE 
     def get_absolute_url(self):
-        return f'/{self.slug}/'
+        return reverse('store:category_list', args=[self.slug])
+
 
 
 class Product(models.Model):
