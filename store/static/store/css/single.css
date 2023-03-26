@@ -1,8 +1,10 @@
 .product_detail_container {
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
     grid-gap: 2rem;
+    text-align: center;
 }
 
 .product_detail_container img {
@@ -25,10 +27,21 @@
 }
 
 .product_detail_container .btn {
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     font-size: 2rem;
     background-color: green;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
+}
+
+@media (max-width: 486px) {
+    .product_detail_container h1 {
+        font-size: 2rem;
+    }
+
+    .product_detail_container p {
+        font-size: 1.5rem;
+    }
+    
 }
