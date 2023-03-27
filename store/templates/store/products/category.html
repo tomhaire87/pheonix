@@ -5,37 +5,17 @@
 {% endblock %}
 {% block content %}
 
+<h1>{{category.name|title}}</h1>
+  <div class="category-grid">
 
-<main>
-  
-    <div class="container">
-
-      <div>{{category.name|title}}</div>
-
-        {% for product in products %}
-
-        <div class="col">
-          <div class="card shadow-sm">
-          {% comment %} <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}"> {% endcomment %}
-
-            <div class="card-body">
-              <p class="card-text">
-                <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">9min read</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {% endfor %}
-
+      {% for product in products %}
+      <div>
+          <h2>{{ product.name }}</h2>
+          <img alt="{{product.name }}" src="{{ product.image_main.url }}">
+          <h3>£{{ product.price }}</h3>
+          <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
       </div>
-    </div>
+      {% endfor %}
+
   </div>
-
-
-</main>
-
 {% endblock %}

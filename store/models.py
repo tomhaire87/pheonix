@@ -38,4 +38,4 @@ class Product(models.Model):
 
     # REPLACE WITH REVERSE 
     def get_absolute_url(self):
-        return f'/{self.category.slug}/{self.slug}'
+        return f'/shop/{self.slug}'

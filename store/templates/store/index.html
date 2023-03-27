@@ -16,28 +16,18 @@
 
     {% comment %} CATEGORY GRID {% endcomment %}
     {% comment %} 2 x 2 Grid for Categories {% endcomment %}
-    <div id="category-grid">
-        <div class="cat-grid-item" id="roof-rack-category">
-            <div class="cat-grid-item-text">
-                <h3>Roof Racks</h3>
-            </div>
-        </div>
-        <div class="cat-grid-item" id="side-ladder-category">
-            <div class="cat-grid-item-text">
-                <h3>Side Ladders</h3>
-            </div> 
-        </div>
-        <div class="cat-grid-item" id="rear-ladder-category">
-            <div class="cat-grid-item-text">
-                <h3>Rear Door Ladders</h3>
-            </div>
-        </div>
-        <div class="cat-grid-item" id="spare-wheel-category">
-            <div class="cat-grid-item-text">
-                <h3>Wheel Carriers</h3>
-            </div>
-        </div>
-        
+    <div class="category-grid">
+
+        {% for c in categories %}
+            <a href="{{ c.get_absolute_url }}">
+                <div class="cat-grid-item" id="{{ c.slug }}-category">
+                    <div class="cat-grid-item-text">
+                        <h3>{{ c.name }}</h3>
+                    </div>
+                </div>
+            </a> 
+        {% endfor %}
+ 
     </div>
 
     {% comment %} EXTRA MEDIA {% endcomment %}

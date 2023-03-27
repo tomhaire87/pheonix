@@ -1,10 +1,10 @@
-#category-grid {
+.category-grid {
     display: grid;
     font-family: 'Walter Turncoat', cursive;
     padding-top: 3rem;
     max-width: 90%;
     margin: 0 auto 5rem;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
     grid-gap: 2rem;
 }
 
@@ -31,41 +31,40 @@
 }
 
 /* CATEGORY IMAGES */
-#roof-rack-category {
+#roof-racks-category {
     background-image: url(../images/roof_rack_category_1_600px.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-#rear-ladder-category {
+#rear-door-ladders-category {
     background-image: url(../images/rear_ladder_category_600px.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-#side-ladder-category {
+#side-ladders-category {
     background-image: url(../images/side_ladder_category_600px.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-#spare-wheel-category {
+#wheel-carriers-category {
     background-image: url(../images/spare_wheel_category_1_600px.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-/* MEDIA QUERIES */
-/* ADJUST GRID ON SMALLER SCREEN */
-@media (max-width: 760px) {
-    #category-grid {
-        grid-template-columns: 1fr;
-    }
+#side-steps-category {
+    background-image: url(../images/side-steps.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+a {
+    text-decoration: none;
+    color: white;
 }
 
-/* ADJUST GRID ON LARGER SCREEN */
-@media (min-width: 1580px) {
-    #category-grid {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+img {
+    max-width: 600px;
 }
