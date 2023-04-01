@@ -3,3 +3,7 @@ Django==4.1.3
 Pillow==9.4.0
 sqlparse==0.4.3
 tzdata==2022.6
+psycopg2
+dj-database-url
+python-decouple
+
