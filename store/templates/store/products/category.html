@@ -1,21 +1,24 @@
 {% extends "../base.html" %}
 {% load static %}
+
 {% block title %}
-{% if category %}{{ category.name }}{% else %}Products{% endif %}
+  {% if category %}{{ category.name }}{% else %}Products{% endif %}
 {% endblock %}
+
 {% block content %}
 
-<h1>{{category.name|title}}</h1>
-  <div class="category-grid">
+  <h1 class="category-title">{{category.name|title}}</h1>
+  <div class="category">
 
-      {% for product in products %}
-      <div>
-          <h2>{{ product.name }}</h2>
-          <img alt="{{product.name }}" src="{{ product.image_main.url }}">
-          <h3>£{{ product.price }}</h3>
-          <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-      </div>
-      {% endfor %}
+    {% for product in products %}
+    <div class="single-category-item">
+      <h2>{{ product.name }}</h2>
+      <a href="{{ product.get_absolute_url }}" class = "category-link">
+        <img class="category-image" alt="{{product.name }}" src="{{ product.image_main.url }}">
+      </a>
+        <h3>£{{ product.price }}</h3>
+    </div>
+    {% endfor %}
 
   </div>
 {% endblock %}

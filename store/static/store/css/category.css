@@ -1,0 +1,28 @@
+.category{
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(400px, 1fr) );
+    grid-gap: 2rem;
+    justify-items: center;
+    margin: 0;
+
+}
+
+.single-category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.category-image {
+    border-radius: 1rem;
+}
+
+.category-title{
+    text-align: center;
+    color: #FBC222;
+}
+
+img{
+    max-width: 400px;
+    height: auto;
+}
