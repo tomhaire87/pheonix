@@ -19,4 +19,9 @@ def category_list(request, category_slug=None):
 
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    return render(request, 'store/products/single.html', {'product': product})
+    images = product.productimage_set.all()
+    context = {
+        'product': product,
+        'images': images
+    }
+    return render(request, 'store/products/single.html', context)

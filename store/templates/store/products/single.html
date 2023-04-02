@@ -8,8 +8,10 @@
 <div class="product_detail_container">
     <h1>{{ product.name }}</h1>
 
-    <img class="img" width="60%" alt="{{ product.name }}" src="{{ product.image_main.url }}">
-
+    {% comment %} <img class="img" width="60%" alt="{{ product.name }}" src="{{ product.image_main.url }}"> {% endcomment %}
+    {% for image in images %}
+        <img class="img" src="{{ image.image.url }}" alt="{{ image.product.name }} Image">
+    {% endfor %}
     <p>{{ product.description}}</p>
 
     <span>£{{ product.price }}</span>
@@ -17,6 +19,8 @@
     <button type="button" class="btn">
         Add to basket
     </button>
+
+    {% comment %} <a href="{% url 'cart/add'%}" class="btn"></a> {% endcomment %}
 
 </div>
 {% endblock %}
