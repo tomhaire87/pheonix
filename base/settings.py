@@ -8,7 +8,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY", default=None)
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['plankton-app-mm5jy.ondigitalocean.app']
+ALLOWED_HOSTS = ['phoenixvanz.com','plankton-app-mm5jy.ondigitalocean.app']
 
 # Application definition
 
