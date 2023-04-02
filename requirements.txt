@@ -6,4 +6,4 @@ tzdata==2022.6
 psycopg2
 dj-database-url
 python-decouple
-
+gunicorn
