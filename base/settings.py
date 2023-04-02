@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-76(+o-i+medduro@0b0gmu=2xr!uy%op9a*y1dyj18@*6qry@0
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['orca-app-mrinq.ondigitalocean.app']
 
 # Application definition
 
