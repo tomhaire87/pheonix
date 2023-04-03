@@ -1,13 +1,14 @@
 import os
 from pathlib import Path
+from base.env import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-76(+o-i+medduro@0b0gmu=2xr!uy%op9a*y1dyj18@*6qry@0'
+SECRET_KEY = config("DJANGO_SECRET_KEY", default=None)
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['orca-app-mrinq.ondigitalocean.app', 'phoenixvanz.com', 'localhost']
+ALLOWED_HOSTS = ['phoenixvanz.com','plankton-app-mm5jy.ondigitalocean.app', '127.0.0.1']
 
 # Application definition
 
@@ -18,9 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'cart',
-    'store',
+    
+    'accounts'
+    'cart'
+    'store'
 ]
 
 MIDDLEWARE = [
@@ -60,6 +62,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+from .db import *
 
 AUTH_PASSWORD_VALIDATORS = [
     {
