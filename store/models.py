@@ -6,7 +6,8 @@ from PIL import Image
 class Category(models.Model):
     name = models.CharField(max_length=200, blank=False, null=False)
     slug = models.SlugField(max_length=50, unique=True)
-
+    image = models.ImageField(upload_to='static\images', default='images/default.png')
+    
     class Meta:
         verbose_name_plural = 'Categories'
 

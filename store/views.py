@@ -25,3 +25,7 @@ def product_detail(request, slug):
         'images': images
     }
     return render(request, 'store/products/single.html', context)
+
+
+def about(request):
+    return render(request, 'store/about.html')
