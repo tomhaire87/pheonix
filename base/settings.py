@@ -6,7 +6,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 
-DEBUG = True
+# DEBUG = True
+DEBUG = config("DEBUG", True)
+
+
+print(DEBUG)
 
 ALLOWED_HOSTS = ['phoenixvanz.com','plankton-app-mm5jy.ondigitalocean.app', '127.0.0.1']
 
