@@ -9,7 +9,6 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # DEBUG = True
 DEBUG = config("DEBUG", True)
 
-
 print(DEBUG)
 
 ALLOWED_HOSTS = ['phoenixvanz.com','plankton-app-mm5jy.ondigitalocean.app', '127.0.0.1']
@@ -26,6 +25,7 @@ INSTALLED_APPS = [
     
     'accounts',
     'cart',
+    'storages',
     'store',
 ]
 
@@ -93,11 +93,14 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+STATIC_ROOT = STATIC_ROOT = BASE_DIR / "staticfiles-cdn" # dev example
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'staticfiles/'),
-# ]
+from cdn.conf import *  # noqa
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
