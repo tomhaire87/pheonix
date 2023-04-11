@@ -45,6 +45,15 @@ nav h1:hover {
     color: #FBC222;
 }
 
+.call a {
+    color: #FBC222;
+    font-size: 2rem;
+    border: solid 3px #FBC222;
+    font-weight: 400;
+    padding: 0.4rem 0.8rem;
+    border-radius: 3px;
+}
+
 .ham {
     appearance: none;
     outline: none;
@@ -113,5 +122,11 @@ nav h1:hover {
 
     .menu {
         display: flex;
+    }
+}
+
+@media (max-width: 440px) {
+    nav h1 {
+        display: none;
     }
 }

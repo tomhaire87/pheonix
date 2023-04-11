@@ -24,24 +24,30 @@
 </head>
     <body>
         <nav class="nav">
+            {% comment %} Left Heading {% endcomment %}
             <h1>Phoenix Vanz</h1>
+            <div class="call">
+                <a href="tel:+447802 737739">
+
+                    Call Us
+               
+                </a>
+            </div>
+            {% comment %} Right Menu {% endcomment %}
             <div class="menu">
                 <a href="/">Home</a>
                 <a href="{% url 'store:about' %}">About</a>
-                <a href="#">Categories</a>
                 <a href="#">Contact</a>
             </div>
             
             <button class="ham">
                 <span class="material-icons">menu</span>
             </button>
-            
         </nav>    
         
         <div class="mobile-menu">
             <a href="/">Home</a>
-            <a href="#">About</a>
-            <a href="#">Categories</a>
+            <a href="{% url 'store:about' %}">About</a>
             <a href="#">Contact</a>
         </div>
         
