@@ -54,6 +54,11 @@ nav h1:hover {
     border-radius: 3px;
 }
 
+.call-heading {
+    font-size: 1.2rem;
+    display: none;
+}
+
 .ham {
     appearance: none;
     outline: none;
@@ -116,17 +121,17 @@ nav h1:hover {
 }
 
 @media (min-width: 768px) {
-    .mobile-menu, .ham {
+    .mobile-menu, .ham, .call {
         display: none;
     }
 
-    .menu {
+    .menu, .call-heading {
         display: flex;
     }
 }
 
 @media (max-width: 440px) {
-    nav h1 {
-        display: none;
+    .call a, nav h1  {
+        font-size: 1rem;
     }
 }
