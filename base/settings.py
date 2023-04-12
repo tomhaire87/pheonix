@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("DJANGO_SECRET_KEY", default="sagfhbfbshkcsfcafhghsfayetfdasdsyfjxhfhasfyegyegyd")
 
 # DEBUG = True
-DEBUG = config("DEBUG")
+DEBUG = config("DEBUG", False)
 
 print(DEBUG)
 
