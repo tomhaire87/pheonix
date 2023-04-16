@@ -6,7 +6,7 @@ from PIL import Image
 class Category(models.Model):
     name = models.CharField(max_length=200, blank=False, null=False)
     slug = models.SlugField(max_length=50, unique=True)
-    image = models.ImageField(upload_to='static\images', default='images/default.png')
+    # image = models.ImageField(upload_to='static\images', default='images/default.png')
     
     class Meta:
         verbose_name_plural = 'Categories'
@@ -50,3 +50,8 @@ class ProductImage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+class CategoryImage(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    name = models.CharField(max_length=120, blank=False, null=False)
+    image = models.ImageField(upload_to='static\images', default='images/default.png')
+    slug = models.SlugField(max_length=50)

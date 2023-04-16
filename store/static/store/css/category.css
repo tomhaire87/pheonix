@@ -4,7 +4,6 @@
     grid-gap: 2rem;
     justify-items: center;
     margin: 0;
-
 }
 
 .single-category-item {
@@ -25,4 +24,12 @@
 img{
     max-width: 400px;
     height: auto;
+}
+
+/* SUB CATEGORY IMAGES */
+#phoenix-roof-platform {
+    height: 500px;
+    background-image: url(../images/platform.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
