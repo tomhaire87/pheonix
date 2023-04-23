@@ -12,9 +12,11 @@
 
     {% for product in products %}
     <a href="{{ product.get_absolute_url }}" class="category-link">
-      <div class="single-category-item" id="{{product.slug}}">
-        <h2>{{ product.name }}</h2>
-        <h3>£{{ product.price }}</h3>
+      <div class="single-category-item cat-grid-item" id="{{product.slug}}">
+        <div class="cat-grid-item-text">
+          <h2>{{ product.name }}</h2>
+          <h3>£{{ product.price }}</h3>
+        </div>
       </div>
     </a>
     {% endfor %}

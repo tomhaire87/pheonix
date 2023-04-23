@@ -28,8 +28,19 @@ img{
 
 /* SUB CATEGORY IMAGES */
 #phoenix-roof-platform {
-    height: 500px;
-    background-image: url(../images/platform.jpg);
+    background-image: url(../images/platform_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#retro-roof-rack {
+    background-image: url(../images/retro_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+#trailblazer {
+    background-image: url(../images/trailblazer_1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
