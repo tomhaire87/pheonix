@@ -21,6 +21,11 @@
     color: #FBC222;
 }
 
+img {
+    max-width: 400px;
+    height: auto;
+}
+
 /* SUB CATEGORY IMAGES */
 #phoenix-roof-platform {
     background-image: url(../images/platform_1.jpg);
