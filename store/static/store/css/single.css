@@ -19,6 +19,7 @@
 .product_detail_container p {
     font-size: 2rem;
     color: #FBC222;
+    margin: 0 5rem;
 }
 
 .product_detail_container span {
@@ -59,4 +60,10 @@
         margin: 0 2rem;
     }
     
+}
+
+@media (min-width: 968px) {
+    .product_detail_container p {
+         margin: 0 10rem;
+    }
 }

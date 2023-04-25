@@ -6,9 +6,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("DJANGO_SECRET_KEY", default="sagfhbfbshkcsfcafhghsfayetfdasdsyfjxhfhasfyegyegyd")
 
-# DEBUG = True
+DEBUG = True
 #DEBUG = config("DEBUG_SETTING")
-DEBUG = os.getenv('DEBUG_SETTING', 'False').lower() == 'true'
+# DEBUG = os.getenv('DEBUG_SETTING', 'False').lower() == 'true'
 print("Debug: " , type(DEBUG), DEBUG)
 
 print("DJS: ", SECRET_KEY)
