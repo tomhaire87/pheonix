@@ -6,7 +6,7 @@ from decouple import config as decouple_config, Config, RepositoryEnv
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_DIR = BASE_DIR.parent
 ENV_FILE_PATH = PROJECT_DIR / ".env"
-
+DEBUG_SETTING = True
 
 @lru_cache()
 def get_config():
