@@ -6,13 +6,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("DJANGO_SECRET_KEY", default="sagfhbfbshkcsfcafhghsfayetfdasdsyfjxhfhasfyegyegyd")
 
-# DEBUG = True
+DEBUG = True
 #DEBUG = config("DEBUG_SETTING")
-DEBUG = os.getenv('DEBUG_SETTING', 'False').lower() == 'true'
-print("Debug: " , type(DEBUG), DEBUG)
+#DEBUG = os.getenv('DEBUG_SETTING', 'False').lower() == 'true'
+#print("Debug: " , type(DEBUG), DEBUG)
 
-print("DJS: ", SECRET_KEY)
-ALLOWED_HOSTS = ['phoenixvanz.com','https://coral-app-4w4xo.ondigitalocean.app/', '127.0.0.1']
+#print("DJS: ", SECRET_KEY)
+ALLOWED_HOSTS = ['phoenixvanz.com','https://coral-app-4w4xo.ondigitalocean.app/', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'nested_admin',
+    'rest_framework',
     'accounts',
     'cart',
     'storages',
