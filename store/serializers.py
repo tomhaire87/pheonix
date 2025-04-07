@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, ProductOptionGroup, ProductOption, ProductImage, Category
+from .models import Product, ProductOptionGroup, ProductOption, ProductImage, Category, CategoryImage
 
 class ProductOptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,6 +28,32 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    header_image = serializers.SerializerMethodField()
+    thumbnail_image = serializers.SerializerMethodField()
+
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug']
+        fields = ['id', 'name', 'slug', 'header_image', 'thumbnail_image']
+
+    def get_header_image(self, obj):
+        image = obj.categoryimage_set.filter(image_type='header').first()
+        return image.image.url if image and image.image else None
+
+    def get_thumbnail_image(self, obj):
+        image = obj.categoryimage_set.filter(image_type='thumbnail').first()
+        return image.image.url if image and image.image else None
+
+class ProductListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'slug', 'description', 'price']
+
+class CategoryWithProductsSerializer(serializers.ModelSerializer):
+    products = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'slug', 'description', 'products']
+
+    def get_products(self, obj):
+        return ProductListSerializer(obj.store.all(), many=True).data
