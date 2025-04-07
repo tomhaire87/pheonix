@@ -12,7 +12,7 @@ DEBUG = True
 #print("Debug: " , type(DEBUG), DEBUG)
 
 #print("DJS: ", SECRET_KEY)
-ALLOWED_HOSTS = ['phoenixvanz.com','https://coral-app-4w4xo.ondigitalocean.app/', '127.0.0.1']
+ALLOWED_HOSTS = ['phoenixvanz.com','https://coral-app-4w4xo.ondigitalocean.app/', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'nested_admin',
+    'rest_framework',
     'accounts',
     'cart',
     'storages',
