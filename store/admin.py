@@ -1,20 +1,44 @@
-from django.contrib import admin
+import nested_admin
 from django.utils.html import format_html
-from .models import Product, Category, ProductImage, CategoryImage
+from django.contrib import admin
+from .models import (
+    Product, Category, ProductImage, CategoryImage,
+    ProductOption, ProductOptionGroup
+)
 
 # --- INLINE ADMIN CLASSES ---
 
-class ProductImageInline(admin.TabularInline):
+class ProductOptionInline(nested_admin.NestedTabularInline):
+    model = ProductOption
+    extra = 1
+
+
+class ProductOptionGroupInline(nested_admin.NestedStackedInline):
+    model = ProductOptionGroup
+    inlines = [ProductOptionInline]
+    extra = 1
+
+
+class ProductImageInline(nested_admin.NestedTabularInline):
     model = ProductImage
     extra = 1
 
 
-class CategoryImageInline(admin.TabularInline):
+class CategoryImageInline(nested_admin.NestedTabularInline):
     model = CategoryImage
     extra = 1
 
 
 # --- MAIN ADMIN REGISTRATIONS ---
+
+@admin.register(Product)
+class ProductAdmin(nested_admin.NestedModelAdmin):
+    list_display = ['name', 'slug', 'price', 'created_at', 'updated_at']
+    prepopulated_fields = {'slug': ('name',)}
+    list_filter = ['category', 'created_at']
+    search_fields = ['name', 'description']
+    inlines = [ProductImageInline, ProductOptionGroupInline]
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -24,13 +48,14 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'price', 'created_at', 'updated_at']
-    prepopulated_fields = {'slug': ('name',)}
-    list_filter = ['category', 'created_at']
-    search_fields = ['name', 'description']
-    inlines = [ProductImageInline]
+@admin.register(ProductOptionGroup)
+class ProductOptionGroupAdmin(admin.ModelAdmin):
+    list_display = ['name', 'product', 'required']
+
+
+@admin.register(ProductOption)
+class ProductOptionAdmin(admin.ModelAdmin):
+    list_display = ['name', 'group', 'price']
 
 
 @admin.register(ProductImage)
@@ -47,7 +72,7 @@ class ProductImageAdmin(admin.ModelAdmin):
 
 @admin.register(CategoryImage)
 class CategoryImageAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'image_preview']
+    list_display = ['name', 'slug', 'image_type', 'image_preview']
     prepopulated_fields = {'slug': ('name',)}
 
     def image_preview(self, obj):
