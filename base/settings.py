@@ -12,7 +12,7 @@ DEBUG = True
 #print("Debug: " , type(DEBUG), DEBUG)
 
 #print("DJS: ", SECRET_KEY)
-ALLOWED_HOSTS = ['phoenixvanz.com','https://coral-app-4w4xo.ondigitalocean.app/', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['phoenixvanz.com','https://coral-app-4w4xo.ondigitalocean.app/', '127.0.0.1', 'localhost', 'dev-phoenixvanz-wmmo3.ondigitalocean.app', 'dev.phoenixvanz.com']
 
 # Application definition
 
