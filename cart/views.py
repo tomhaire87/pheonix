@@ -35,24 +35,33 @@ def remove_from_cart(request, cart_item_id):
     return redirect('cart:cart')
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def get_or_create_cart(request):
     cart, _ = Cart.objects.get_or_create(user=request.user)
     serializer = CartSerializer(cart)
     return Response(serializer.data)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def add_to_cart(request):
+    if not request.session.session_key:
+        request.session.create()
+
+    session_key = request.session.session_key
+    user = request.user if request.user.is_authenticated else None
+
     product_id = request.data.get('product_id')
     quantity = int(request.data.get('quantity', 1))
-    
+
     try:
         product = Product.objects.get(id=product_id)
     except Product.DoesNotExist:
         return Response({'error': 'Product not found'}, status=404)
-    
-    cart, _ = Cart.objects.get_or_create(user=request.user)
+
+    # Get or create cart for user or guest session
+    cart, _ = Cart.objects.get_or_create(
+        user=user if user else None,
+        session_key=None if user else session_key
+    )
+
     item, created = CartItem.objects.get_or_create(cart=cart, product=product)
     if not created:
         item.quantity += quantity
@@ -63,7 +72,6 @@ def add_to_cart(request):
     return Response({'success': True})
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def update_cart_item(request):
     item_id = request.data.get('item_id')
     quantity = int(request.data.get('quantity'))
@@ -77,7 +85,6 @@ def update_cart_item(request):
         return Response({'error': 'Item not found'}, status=404)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def remove_from_cart(request):
     item_id = request.data.get('item_id')
     try:
