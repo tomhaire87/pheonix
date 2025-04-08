@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Product, Cart, CartItem
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from .models import Cart, CartItem
+from store.models import Product
 
 @login_required
 def cart(request):
@@ -27,5 +32,58 @@ def remove_from_cart(request, cart_item_id):
             cart_item.quantity -= 1
             cart_item.save()
     return redirect('cart:cart')
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_or_create_cart(request):
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    serializer = CartSerializer(cart)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_to_cart(request):
+    product_id = request.data.get('product_id')
+    quantity = int(request.data.get('quantity', 1))
+    
+    try:
+        product = Product.objects.get(id=product_id)
+    except Product.DoesNotExist:
+        return Response({'error': 'Product not found'}, status=404)
+    
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    if not created:
+        item.quantity += quantity
+    else:
+        item.quantity = quantity
+    item.save()
+
+    return Response({'success': True})
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def update_cart_item(request):
+    item_id = request.data.get('item_id')
+    quantity = int(request.data.get('quantity'))
+
+    try:
+        item = CartItem.objects.get(id=item_id, cart__user=request.user)
+        item.quantity = quantity
+        item.save()
+        return Response({'success': True})
+    except CartItem.DoesNotExist:
+        return Response({'error': 'Item not found'}, status=404)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def remove_from_cart(request):
+    item_id = request.data.get('item_id')
+    try:
+        item = CartItem.objects.get(id=item_id, cart__user=request.user)
+        item.delete()
+        return Response({'success': True})
+    except CartItem.DoesNotExist:
+        return Response({'error': 'Item not found'}, status=404)
 
 
