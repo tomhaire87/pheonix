@@ -110,3 +110,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000", 
+    "https://dev-phoenixvanz-wmmo3.ondigitalocean.app", 
+]
+
+SESSION_COOKIE_SAMESITE = "Lax"  # or 'None' if cross-domain + HTTPS
+SESSION_COOKIE_SECURE = True 
