@@ -36,7 +36,25 @@ def remove_from_cart(request, cart_item_id):
 
 @api_view(['GET'])
 def get_or_create_cart(request):
-    cart, _ = Cart.objects.get_or_create(user=request.user)
+    # Ensure session is initialized
+    if not request.session.session_key:
+        request.session.create()
+
+    session_key = request.session.session_key
+    user = request.user if request.user.is_authenticated else None
+
+    # Try to find existing cart
+    cart = Cart.objects.filter(
+        user=user if user else None,
+        session_key=None if user else session_key
+    ).first()
+
+    if not cart:
+        cart = Cart.objects.create(
+            user=user if user else None,
+            session_key=None if user else session_key
+        )
+
     serializer = CartSerializer(cart)
     return Response(serializer.data)
 
