@@ -6,12 +6,8 @@ from .views import ProductDetailAPI ,CategoryListAPI, CategoryDetailAPI, ReviewL
 app_name = 'store'
 
 urlpatterns = [
-    path('', views.get_products, name='get_products'),
-    path('about', views.about, name='about'),
-    path('shop/<slug:slug>', views.product_detail, name='product_detail'),
-    path('shop/<slug:category_slug>/', views.category_list, name='category_list'),
     path('api/products/<slug:slug>/', ProductDetailAPI.as_view(), name='product-detail-api'),
     path('api/categories/', CategoryListAPI.as_view(), name='category-list-api'),
     path('api/category/<slug:slug>/', CategoryDetailAPI.as_view(), name='category-detail-api'),
-     path('api/reviews/', ReviewListAPI.as_view(), name='review-list-api'),
+    path('api/reviews/', ReviewListAPI.as_view(), name='review-list-api'),
 ]
