@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product, Category
+from .models import Product, Category, ProductImage, CategoryImage, Review
 from rest_framework import generics
-from .serializers import ProductSerializer, CategorySerializer, CategoryWithProductsSerializer
+from .serializers import ProductSerializer, CategorySerializer, CategoryWithProductsSerializer, ReviewSerializer
 
 
 def categories(request):
@@ -48,3 +48,7 @@ class CategoryDetailAPI(generics.RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategoryWithProductsSerializer
     lookup_field = 'slug'
+
+class ReviewListAPI(generics.ListAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer

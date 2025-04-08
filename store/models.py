@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 
 
@@ -91,3 +92,15 @@ class CategoryImage(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.image_type or 'Unspecified'})"
+
+class Review(models.Model):
+    name = models.CharField(max_length=100)
+    content = models.TextField()
+    stars = models.PositiveSmallIntegerField(default=5)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.name} ({self.stars}★)"

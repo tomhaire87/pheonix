@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, ProductOptionGroup, ProductOption, ProductImage, Category, CategoryImage
+from .models import Product, ProductOptionGroup, ProductOption, ProductImage, Category, CategoryImage, Review
 
 class ProductOptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,3 +57,9 @@ class CategoryWithProductsSerializer(serializers.ModelSerializer):
 
     def get_products(self, obj):
         return ProductListSerializer(obj.store.all(), many=True).data
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['id', 'name', 'content', 'created_at']

@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.contrib import admin
 from .models import (
     Product, Category, ProductImage, CategoryImage,
-    ProductOption, ProductOptionGroup
+    ProductOption, ProductOptionGroup, Review
 )
 
 # --- INLINE ADMIN CLASSES ---
@@ -80,3 +80,9 @@ class CategoryImageAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" width="50" style="object-fit:cover;" />', obj.image.url)
         return "-"
     image_preview.short_description = 'Preview'
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['name', 'created_at']
+    search_fields = ['name', 'content']
+    ordering = ['-created_at']
