@@ -13,7 +13,7 @@ urlpatterns = [
     path('api/', include('store.api_urls')),  # ⬅️ you'll create this (see below)
     
     # only include other app routes if you still need them
-    path('cart/', include('cart.urls', namespace='cart')),
+    path('api/cart/', include('cart.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
 ]
 
