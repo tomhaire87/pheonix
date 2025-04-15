@@ -66,13 +66,21 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 class CategoryWithProductsSerializer(serializers.ModelSerializer):
     products = serializers.SerializerMethodField()
+    header_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'description', 'products']
+        fields = ['id', 'name', 'slug', 'description', 'header_image', 'products']
 
     def get_products(self, obj):
-        return ProductListSerializer(obj.store.all(), many=True).data
+        return ProductListSerializer(obj.store.all(), many=True, context=self.context).data
+
+    def get_header_image(self, obj):
+        request = self.context.get('request')
+        image = obj.categoryimage_set.filter(image_type='header').first()
+        if image and image.image:
+            return request.build_absolute_uri(image.image.url) if request else image.image.url
+        return None
 
 
 class ReviewSerializer(serializers.ModelSerializer):
