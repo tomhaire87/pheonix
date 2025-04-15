@@ -44,6 +44,30 @@ class Product(models.Model):
     def get_absolute_url(self):
         return f'/shop/{self.slug}'
 
+class ProductImage(models.Model):
+    IMAGE_TYPE_CHOICES = [
+        ('', 'Unspecified'),
+        ('thumbnail', 'Thumbnail'),
+        ('gallery', 'Gallery'),
+    ]
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.CharField(max_length=120, blank=False, null=False)
+    image = models.ImageField(upload_to='product_images/', default='product_images/default.png')
+    slug = models.SlugField(max_length=50)
+    image_type = models.CharField(
+        max_length=10,
+        choices=IMAGE_TYPE_CHOICES,
+        blank=True,
+        null=True,
+        default=''
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.image_type or 'Unspecified'})"
+
 class ProductOptionGroup(models.Model):
     product = models.ForeignKey(Product, related_name='option_groups', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)  # e.g. Wheelbase, Lights
@@ -62,14 +86,6 @@ class ProductOption(models.Model):
     def __str__(self):
         return f"{self.group.name} - {self.name} (£{self.price})"
 
-
-class ProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=120, blank=False, null=False)
-    image = models.ImageField(upload_to='static\images', default='images/default.png')
-    slug = models.SlugField(max_length=50)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 class CategoryImage(models.Model):
     IMAGE_TYPE_CHOICES = [
