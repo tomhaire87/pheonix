@@ -11,27 +11,20 @@ class ProductOptionGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductOptionGroup
-        fields = ['id', 'name', 'required', 'options','image_type']
+        fields = ['id', 'name', 'required', 'options']
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = ['id', 'name', 'slug', 'image', 'image_type']
-
+        fields = ['id', 'name', 'image', 'slug']
 
 class ProductSerializer(serializers.ModelSerializer):
-    thumbnail = serializers.SerializerMethodField()
+    option_groups = ProductOptionGroupSerializer(many=True, read_only=True)
+    productimage_set = ProductImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'slug', 'description', 'price', 'thumbnail']
-
-    def get_thumbnail(self, obj):
-        thumb = obj.productimage_set.filter(image_type='thumbnail').first()
-        if thumb:
-            request = self.context.get('request')
-            return request.build_absolute_uri(thumb.image.url) if request else thumb.image.url
-        return None
+        fields = ['id', 'name', 'slug', 'description', 'price', 'option_groups', 'productimage_set']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -72,8 +65,7 @@ class CategoryWithProductsSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'description', 'products']
 
     def get_products(self, obj):
-        request = self.context.get('request')  # <- grabs the request
-        return ProductListSerializer(obj.store.all(), many=True, context={'request': request}).data
+        return ProductListSerializer(obj.store.all(), many=True).data
 
 
 class ReviewSerializer(serializers.ModelSerializer):
