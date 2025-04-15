@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Product, ProductOptionGroup, ProductOption, ProductImage, Category, CategoryImage, Review
+from django.conf import settings
 
 class ProductOptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,12 +37,18 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'header_image', 'thumbnail_image']
 
     def get_header_image(self, obj):
+        request = self.context.get('request')
         image = obj.categoryimage_set.filter(image_type='header').first()
-        return image.image.url if image and image.image else None
+        if image and image.image:
+            return request.build_absolute_uri(image.image.url) if request else image.image.url
+        return None
 
     def get_thumbnail_image(self, obj):
+        request = self.context.get('request')
         image = obj.categoryimage_set.filter(image_type='thumbnail').first()
-        return image.image.url if image and image.image else None
+        if image and image.image:
+            return request.build_absolute_uri(image.image.url) if request else image.image.url
+        return None
 
 class ProductListSerializer(serializers.ModelSerializer):
     thumbnail = serializers.SerializerMethodField()
