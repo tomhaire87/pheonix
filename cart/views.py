@@ -34,6 +34,11 @@ def remove_from_cart(request, cart_item_id):
             cart_item.save()
     return redirect('cart:cart')
 
+@api_view(['POST'])
+def create_cart(request):
+    cart = Cart.objects.create()
+    return Response({'cart_id': str(cart.id)})
+
 @api_view(['GET'])
 def get_or_create_cart(request):
     # Ensure session is initialized
@@ -60,25 +65,22 @@ def get_or_create_cart(request):
 
 @api_view(['POST'])
 def add_to_cart(request):
-    if not request.session.session_key:
-        request.session.create()
-
-    session_key = request.session.session_key
-    user = request.user if request.user.is_authenticated else None
-
+    cart_id = request.data.get('cart_id')
     product_id = request.data.get('product_id')
     quantity = int(request.data.get('quantity', 1))
+
+    if not cart_id:
+        return Response({'error': 'Missing cart_id'}, status=400)
+
+    try:
+        cart = Cart.objects.get(id=cart_id)
+    except Cart.DoesNotExist:
+        return Response({'error': 'Cart not found'}, status=404)
 
     try:
         product = Product.objects.get(id=product_id)
     except Product.DoesNotExist:
         return Response({'error': 'Product not found'}, status=404)
-
-    # Get or create cart for user or guest session
-    cart, _ = Cart.objects.get_or_create(
-        user=user if user else None,
-        session_key=None if user else session_key
-    )
 
     item, created = CartItem.objects.get_or_create(cart=cart, product=product)
     if not created:
