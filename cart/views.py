@@ -60,14 +60,18 @@ def get_cart(request):
             'id': str(cart.id),
             'items': [
                 {
+                    'id': item.id,  # 👈 Add this line
                     'product_id': item.product.id,
                     'product_name': item.product.name,
+                    'image': item.product.image.url if item.product.image else None,
+                    'price': str(item.product.price),
                     'quantity': item.quantity,
                 }
                 for item in items
             ]
         }
     })
+
 
 @api_view(['POST'])
 def add_to_cart(request):
