@@ -112,8 +112,13 @@ def update_cart_item(request):
 @api_view(['POST'])
 def remove_from_cart(request):
     item_id = request.data.get('item_id')
+    cart_id = request.data.get('cart_id')
+
+    if not item_id or not cart_id:
+        return Response({'error': 'Missing item_id or cart_id'}, status=400)
+
     try:
-        item = CartItem.objects.get(id=item_id, cart__user=request.user)
+        item = CartItem.objects.get(id=item_id, cart_id=cart_id)
         item.delete()
         return Response({'success': True})
     except CartItem.DoesNotExist:
