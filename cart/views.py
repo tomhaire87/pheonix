@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Cart, CartItem
 from store.models import Product
 from .serializers import CartSerializer
+import traceback
+
 
 @login_required
 def cart(request):
@@ -40,34 +42,8 @@ def create_cart(request):
     return Response({'cart_id': str(cart.id)})
 
 @api_view(['GET'])
-def get_or_create_cart(request):
-    # Ensure session is initialized
-    if not request.session.session_key:
-        request.session.create()
-
-    session_key = request.session.session_key
-    user = request.user if request.user.is_authenticated else None
-
-    # Try to find existing cart
-    cart = Cart.objects.filter(
-        user=user if user else None,
-        session_key=None if user else session_key
-    ).first()
-
-    if not cart:
-        cart = Cart.objects.create(
-            user=user if user else None,
-            session_key=None if user else session_key
-        )
-
-    serializer = CartSerializer(cart)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def add_to_cart(request):
-    cart_id = request.data.get('cart_id')
-    product_id = request.data.get('product_id')
-    quantity = int(request.data.get('quantity', 1))
+def get_cart(request):
+    cart_id = request.query_params.get('cart_id')
 
     if not cart_id:
         return Response({'error': 'Missing cart_id'}, status=400)
@@ -77,19 +53,48 @@ def add_to_cart(request):
     except Cart.DoesNotExist:
         return Response({'error': 'Cart not found'}, status=404)
 
+    items = CartItem.objects.filter(cart=cart)
+    return Response({
+        'success': True,
+        'cart': {
+            'id': str(cart.id),
+            'items': [
+                {
+                    'product_id': item.product.id,
+                    'product_name': item.product.name,
+                    'quantity': item.quantity,
+                }
+                for item in items
+            ]
+        }
+    })
+
+@api_view(['POST'])
+def add_to_cart(request):
     try:
+        cart_id = request.data.get('cart_id')
+        product_id = request.data.get('product_id')
+        quantity = int(request.data.get('quantity', 1))
+
+        if not cart_id:
+            return Response({'error': 'Missing cart_id'}, status=400)
+
+        cart = Cart.objects.get(id=cart_id)
+
         product = Product.objects.get(id=product_id)
-    except Product.DoesNotExist:
-        return Response({'error': 'Product not found'}, status=404)
 
-    item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    if not created:
-        item.quantity += quantity
-    else:
-        item.quantity = quantity
-    item.save()
+        item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+        if not created:
+            item.quantity += quantity
+        else:
+            item.quantity = quantity
+        item.save()
 
-    return Response({'success': True})
+        return Response({'success': True})
+    
+    except Exception as e:
+        traceback.print_exc()  # Log full stack trace to terminal
+        return Response({'error': str(e)}, status=500)
 
 @api_view(['POST'])
 def update_cart_item(request):
