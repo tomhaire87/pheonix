@@ -54,21 +54,32 @@ def get_cart(request):
         return Response({'error': 'Cart not found'}, status=404)
 
     items = CartItem.objects.filter(cart=cart)
+
+    cart_items = []
+    cart_total = 0
+
+    for item in items:
+        unit_price = item.product.price or 0
+        line_total = unit_price * item.quantity
+        cart_total += line_total
+
+        cart_items.append({
+            'item_id': item.id,
+            'product_id': item.product.id,
+            'product_name': item.product.name,
+            'quantity': item.quantity,
+            'price': str(line_total),  # 👈 Total for this line
+        })
+
     return Response({
         'success': True,
         'cart': {
             'id': str(cart.id),
-            'items': [
-                {
-                    'item_id': item.id,
-                    'product_id': item.product.id,
-                    'product_name': item.product.name,
-                    'quantity': item.quantity,
-                }
-                for item in items
-            ]
+            'items': cart_items,
+            'total': str(cart_total),  # 👈 Grand total
         }
     })
+
 
 @api_view(['POST'])
 def add_to_cart(request):
